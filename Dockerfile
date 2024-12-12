@@ -1,5 +1,6 @@
 # Mavenを使用してアプリケーションをビルド
-FROM maven:4.0.0-openjdk-22 AS builder
+# java22を使用する
+FROM maven:3.8.5-openjdk-22 AS builder
 
 # ビルド時の作業ディレクトリを設定
 WORKDIR /app
