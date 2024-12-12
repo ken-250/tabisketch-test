@@ -52,17 +52,17 @@ steps:
 # Secret Managerから取得する環境変数
 availableSecrets:
   secretManager:
-    - versionName: projects/207428784039/secrets/DATABASE_URL/versions/latest
+    - versionName: projects/207428784039/secrets/DATABASE_URL/versions/2
       env: 'DATABASE_URL'
-    - versionName: projects/207428784039/secrets/DATABASE_USERNAME/versions/latest
+    - versionName: projects/207428784039/secrets/DATABASE_USERNAME/versions/1
       env: 'DATABASE_USERNAME'
-    - versionName: projects/207428784039/secrets/DATABASE_PASSWORD/versions/latest
+    - versionName: projects/207428784039/secrets/DATABASE_PASSWORD/versions/2
       env: 'DATABASE_PASSWORD'
-    - versionName: projects/207428784039/secrets/GOOGLE_MAPS_API_KEY/versions/latest
+    - versionName: projects/207428784039/secrets/GOOGLE_MAPS_API_KEY/versions/1
       env: 'GOOGLE_MAPS_API_KEY'
-    - versionName: projects/207428784039/secrets/MAIL_PASSWORD/versions/latest
+    - versionName: projects/207428784039/secrets/MAIL_PASSWORD/versions/1
       env: 'MAIL_PASSWORD'
-    - versionName: projects/207428784039/secrets/MAIL_USERNAME/versions/latest
+    - versionName: projects/207428784039/secrets/MAIL_USERNAME/versions/1
       env: 'MAIL_USERNAME'
 
 images:
