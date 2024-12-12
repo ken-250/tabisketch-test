@@ -1,6 +1,5 @@
 # Mavenを使用してアプリケーションをビルド
-# java22を使用する
-FROM maven:3.8.5-openjdk-22 AS builder
+FROM maven:3.9.9-eclipse-temurin-22-jammy
 
 # ビルド時の作業ディレクトリを設定
 WORKDIR /app
@@ -10,8 +9,8 @@ COPY src ./src
 # Mavenでビルド
 RUN mvn package -DskipTests
 
-# 実行環境にJDK 22を使用
-FROM openjdk:22-jdk-alpine
+# JDK 22を使用
+FROM eclipse-temurin:22-jdk-alpine
 
 # 作業ディレクトリを設定
 WORKDIR /app
