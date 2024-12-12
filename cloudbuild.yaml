@@ -1,0 +1,72 @@
+steps:
+  # Dockerイメージの作成
+  - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
+    args: [
+      '-c',
+      'docker build -t gcr.io/$PROJECT_ID/tabisketch:$COMMIT_SHA . 
+        --build-arg _DATABASE_URL=$$DATABASE_URL
+        --build-arg _DATABASE_USERNAME=$$DATABASE_USERNAME 
+        --build-arg _DATABASE_PASSWORD=$$DATABASE_PASSWORD
+        --build-arg _GOOGLE_MAPS_API_KEY=$$GOOGLE_MAPS_API_KEY
+        --build-arg _MAIL_PASSWORD=$$MAIL_PASSWORD
+        --build-arg _MAIL_USERNAME=$$MAIL_USERNAME'
+    ]
+    secretEnv: [
+      'DATABASE_URL',
+      'DATABASE_USERNAME',
+      'DATABASE_PASSWORD',
+      'GOOGLE_MAPS_API_KEY',
+      'MAIL_PASSWORD',
+      'MAIL_USERNAME'
+    ]
+
+  # DockerイメージをArtifact RegistryへPush
+  - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
+    args: [
+      '-c',
+      'docker push gcr.io/$PROJECT_ID/tabisketch:$COMMIT_SHA'
+    ]
+
+  # Cloud Runにデプロイ
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'gcloud'
+    args: [
+      'run',
+      'deploy',
+      'tabisketch',
+      '--image',
+      'gcr.io/$PROJECT_ID/tabisketch:$COMMIT_SHA',
+      '--region',
+      'asia-northeast1',
+      '--add-cloudsql-instances',
+      '$PROJECT_ID:us-central1:tabisketch',
+      '--vpc-connector',
+      'tabisketch-connector',
+      '--vpc-egress',
+      'all',
+      '--allow-unauthenticated'
+    ]
+
+# Secret Managerから取得する環境変数
+availableSecrets:
+  secretManager:
+    - versionName: projects/207428784039/secrets/DATABASE_URL/versions/latest
+      env: 'DATABASE_URL'
+    - versionName: projects/207428784039/secrets/DATABASE_USERNAME/versions/latest
+      env: 'DATABASE_USERNAME'
+    - versionName: projects/207428784039/secrets/DATABASE_PASSWORD/versions/latest
+      env: 'DATABASE_PASSWORD'
+    - versionName: projects/207428784039/secrets/GOOGLE_MAPS_API_KEY/versions/latest
+      env: 'GOOGLE_MAPS_API_KEY'
+    - versionName: projects/207428784039/secrets/MAIL_PASSWORD/versions/latest
+      env: 'MAIL_PASSWORD'
+    - versionName: projects/207428784039/secrets/MAIL_USERNAME/versions/latest
+      env: 'MAIL_USERNAME'
+
+images:
+  - 'gcr.io/$PROJECT_ID/spring-book-management:$COMMIT_SHA'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
