@@ -10,7 +10,7 @@ COPY src ./src
 RUN mvn package -DskipTests
 
 # JDK 22を使用
-FROM eclipse-temurin:22-jdk-alpine
+FROM openjdk:22-jdk
 
 # 作業ディレクトリを設定
 WORKDIR /app
