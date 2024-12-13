@@ -5,7 +5,7 @@ COPY src ./src
 RUN npm install -g tailwindcss
 RUN npx tailwindcss -i /app/src/main/resources/static/css/input.css -o /app/src/main/resources/static/css/tailwind.css
 
-CORY --from=frontend-builder /app/src/main/resources/static/css/tailwind.css /app/src/main/resources/static/css/tailwind.css
+COPY --from=frontend-builder /app/src/main/resources/static/css/tailwind.css /app/src/main/resources/static/css/tailwind.css
 
 # Mavenを使用してアプリケーションをビルド
 FROM maven:3.9.9-eclipse-temurin-22 AS builder
