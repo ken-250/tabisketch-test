@@ -3,7 +3,7 @@ FROM node:16.11.1 AS tailwindcss-builder
 WORKDIR /frontend
 COPY src/main/resources/static/css .
 RUN npm install -g tailwindcss-cli
-RUN npx tailwindcss-cli@latest build ./inpur.css -o ./tailwind.css
+RUN npx tailwindcss-cli@latest build ./input.css -o ./tailwind.css
 
 COPY --from=tailwindcss-builder /frontend/tailwind.css /src/main/resources/static/css/tailwind.css
 
