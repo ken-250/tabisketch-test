@@ -1,17 +1,4 @@
 steps:
-#  # docker hubからpull
-#  - name: 'gcr.io/cloud-builders/docker'
-#    entrypoint: 'bash'
-#    args: [
-#      '-c',
-#      'docker login -u $$DOCKER_USERNAME -p $$DOCKER_PASSWORD
-#        && docker pull $$DOCKER_USERNAME/maven:3.9.9-eclipse-temurin-22-jammy'
-#    ]
-#    secretEnv: [
-#      'DOCKER_USERNAME',
-#      'DOCKER_PASSWORD'
-#    ]
-
   # Dockerイメージの作成
   - name: 'gcr.io/cloud-builders/docker'
     entrypoint: 'bash'
