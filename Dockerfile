@@ -22,6 +22,7 @@ COPY --from=builder /app/target/tabisketch-0.0.1-SNAPSHOT.jar /app/app.jar
 FROM node:18 AS frontend-build
 WORKDIR /frontend
 COPY src/main/resources/static .
+RUN npm install -g tailwindcss
 RUN npx tailwindcss -i ./src/main/resources/static/css/input.css -o ./src/main/resources/static/css/tailwind.css
 
 # 環境変数を受け取る
