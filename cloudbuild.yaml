@@ -4,6 +4,7 @@ steps:
     entrypoint: 'bash'
     args: [
       '-c',
+      'docker pull maven:3.9.9-eclipse-temurin-22-jammy',
       'docker build -t gcr.io/$PROJECT_ID/tabisketch:$COMMIT_SHA . 
         --build-arg _DATABASE_URL=$$DATABASE_URL
         --build-arg _DATABASE_USERNAME=$$DATABASE_USERNAME 
