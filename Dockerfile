@@ -1,5 +1,5 @@
 # Mavenを使用してアプリケーションをビルド
-FROM maven:3.9.9-eclipse-temurin-22-jammy
+FROM maven:3.9.9-eclipse-temurin-22 AS builder
 
 # ビルド時の作業ディレクトリを設定
 WORKDIR /app
@@ -16,7 +16,7 @@ FROM eclipse-temurin:22-jdk-alpine
 WORKDIR /app
 
 # ビルド済みのJARファイルをコピー
-COPY --from=builder /app/target/tabisketch-0.0.1-SNAPSHOT.jar /app/app.jar
+COPY --from=builder /app/target/tabisketch-test0.0.1-SNAPSHOT.jar /app/app.jar
 
 # 環境変数を受け取る
 ARG _DATABASE_URL

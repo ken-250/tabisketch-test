@@ -4,7 +4,6 @@ steps:
     entrypoint: 'bash'
     args: [
       '-c',
-      'docker pull openjdk',
       'docker build -t gcr.io/$PROJECT_ID/tabisketch-test:$COMMIT_SHA . 
         --build-arg _DATABASE_URL=$$DATABASE_URL
         --build-arg _DATABASE_USERNAME=$$DATABASE_USERNAME 
