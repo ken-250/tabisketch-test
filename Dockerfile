@@ -2,8 +2,9 @@
 FROM node:16.11.1 AS tailwindcss-builder
 WORKDIR /app
 COPY src ./src
-RUN npm install -g tailwindcss-cli
-RUN npx tailwindcss-cli@latest build /app/src/main/resources/static/css/input.css -o /app/src/main/resources/static/css/tailwind.css
+RUN npm install -D tailwindcss
+RUN npx tailwindcss init
+RUN npx tailwindcss -i /app/src/main/resources/static/css/input.css -o /app/src/main/resources/static/css/tailwind.css
 
 COPY --from=tailwindcss-builder /app/src/main/resources/static/css/tailwind.css /app/src/main/resources/static/css/tailwind.css
 
