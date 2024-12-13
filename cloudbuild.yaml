@@ -27,7 +27,7 @@ steps:
     entrypoint: 'bash'
     args: [
       '-c',
-      'docker push gcr.io/$PROJECT_ID/tabisketch:$COMMIT_SHA'
+      'docker push gcr.io/$PROJECT_ID/tabisketch-test:$COMMIT_SHA'
     ]
 
   # Cloud Runにデプロイ
@@ -67,7 +67,7 @@ availableSecrets:
       env: 'MAIL_USERNAME'
 
 images:
-  - 'gcr.io/$PROJECT_ID/spring-book-management:$COMMIT_SHA'
+  - 'gcr.io/$PROJECT_ID/tabisketch:$COMMIT_SHA'
 
 options:
   logging: CLOUD_LOGGING_ONLY
