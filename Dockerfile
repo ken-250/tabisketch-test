@@ -1,5 +1,5 @@
 # Mavenを使用してアプリケーションをビルド
-FROM maven:3.9.9-eclipse-temurin-22-jammy AS builder
+FROM maven:3.9.9-eclipse-temurin-22-jammy
 
 # ビルド時の作業ディレクトリを設定
 WORKDIR /app
