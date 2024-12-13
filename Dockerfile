@@ -18,6 +18,15 @@ WORKDIR /app
 # ビルド済みのJARファイルをコピー
 COPY --from=builder /app/target/tabisketch-0.0.1-SNAPSHOT.jar /app/app.jar
 
+# Tailwind CSS ビルドステップ
+FROM node:18 AS frontend-build
+WORKDIR /frontend
+COPY src/main/resources/static .
+RUN npm install
+RUN npx tailwindcss -i .\src\main\resources\static\css\input.css -o .\src\main\resources\static\css\tailwind.css
+COPY --from=frontend-build /frontend/src/main/resources/static/css/tailwind.css /app/src/main/resources/static/css/tailwind.css
+
+
 # 環境変数を受け取る
 ARG _DATABASE_URL
 ARG _DATABASE_USERNAME
