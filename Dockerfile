@@ -2,7 +2,7 @@
 FROM node:18 AS frontend-build
 WORKDIR /app
 COPY src/main/resources/static/css .
-RUN npm install
+RUN npm install -g tailwindcss
 RUN npx tailwindcss build input.css -o tailwind.css
 
 COPY --from=frontend-build /frontend/tailwind.css /app/src/main/resources/static/css/tailwind.css
