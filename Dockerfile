@@ -10,13 +10,13 @@ COPY src ./src
 RUN mvn package -DskipTests
 
 # JDK 22を使用
-FROM eclipse-temurin:22-jdk-alpine
+FROM eclipse-temurin:22
 
 # 作業ディレクトリを設定
 WORKDIR /app
 
 # ビルド済みのJARファイルをコピー
-COPY --from=builder /app/target/tabisketch-test0.0.1-SNAPSHOT.jar /app/app.jar
+COPY --from=builder /app/target/tabisketch-test-0.0.1-SNAPSHOT.jar /app/app.jar
 
 # 環境変数を受け取る
 ARG _DATABASE_URL
