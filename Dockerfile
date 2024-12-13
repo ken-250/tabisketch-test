@@ -1,11 +1,11 @@
 # Tailwind CSS ビルドステップ
 FROM node:18 AS frontend-build
 WORKDIR /app
-COPY src ./src
-RUN npm install -g tailwindcss
-RUN npx tailwindcss -i /app/src/main/resources/static/css/input.css -o /app/src/main/resources/static/css/tailwind.css
+COPY src/main/resources/static/css .
+RUN npm install
+RUN npx tailwindcss build input.css -o tailwind.css
 
-COPY --from=frontend-build /app/src/main/resources/static/css/tailwind.css /app/src/main/resources/static/css/tailwind.css
+COPY --from=frontend-build /frontend/tailwind.css /app/src/main/resources/static/css/tailwind.css
 
 # Mavenを使用してアプリケーションをビルド
 FROM maven:3.9.9-eclipse-temurin-22 AS builder
