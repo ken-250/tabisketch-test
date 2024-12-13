@@ -1,3 +1,10 @@
+# Tailwind CSS ビルドステップ
+FROM node:18 AS frontend-build
+WORKDIR /app
+COPY src ./src
+RUN npm install -g tailwindcss
+RUN npx tailwindcss -i /app/src/main/resources/static/css/input.css -o /app/src/main/resources/static/css/tailwind.css
+
 # Mavenを使用してアプリケーションをビルド
 FROM maven:3.9.9-eclipse-temurin-22 AS builder
 
@@ -17,13 +24,6 @@ WORKDIR /app
 
 # ビルド済みのJARファイルをコピー
 COPY --from=builder /app/target/tabisketch-0.0.1-SNAPSHOT.jar /app/app.jar
-
-# Tailwind CSS ビルドステップ
-FROM node:18 AS frontend-build
-WORKDIR /app
-COPY src/main/resources/static .
-RUN npm install -g tailwindcss
-RUN npx tailwindcss -i /app/src/main/resources/static/css/input.css -o /app/src/main/resources/static/css/tailwind.css
 
 # 環境変数を受け取る
 ARG _DATABASE_URL
